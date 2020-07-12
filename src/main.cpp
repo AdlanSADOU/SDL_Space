@@ -7,7 +7,7 @@ int main(int argc, char* args[])
 	setup();
 
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	
+
 	Sprite* background = create_sprite(renderer, "assets/background.jpg", SDL_FRect{0,0, SCREEN_WIDTH, SCREEN_HEIGHT});
 	
 	Entity *playerShip = new Entity(renderer, "assets/ship.png", SDL_FRect{ SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84 });
@@ -51,6 +51,7 @@ int main(int argc, char* args[])
 		SDL_RenderClear(renderer);
 
 		background->draw(renderer);
+
 		playerShip->Draw(renderer, 1);
 		
 		SDL_RenderPresent(renderer);
