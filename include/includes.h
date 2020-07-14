@@ -1,9 +1,11 @@
 #pragma once
 
-#define SDL_VIDEO_VULKAN
 #include <stdio.h>
 
-#include <SDL.h>
-#include <SDL_image.h>
+#include "SDL.h"
+#include "SDL_image.h"
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_sdl.h"
 
 #include "vector.h"

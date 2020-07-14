@@ -11,6 +11,9 @@ static bool Running = true;
 SDL_Window* window = NULL;
 SDL_Surface* screenSurface = NULL;
 
+float deltaTime = 0;
+float avgFPS = 0;
+
 struct Sprite {
 	SDL_Surface* surface = NULL;
 	SDL_Texture* texture = NULL;
@@ -70,7 +73,7 @@ void eventHandler(SDL_Event* event)
 
 void setup()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
 	}
 	else {

@@ -1,0 +1,1 @@
+CALL build\Win64\rpg.exe
