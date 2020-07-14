@@ -1,6 +1,6 @@
 #include "mygui.h"
 
-void ShowExampleAppSimpleOverlay(bool* p_open, float avgFPS, float deltaTime)
+void ShowExampleAppSimpleOverlay(bool* p_open, float deltaTime, float avgFPS)
 {
     const float DISTANCE = 10.0f;
     static int corner = 0;

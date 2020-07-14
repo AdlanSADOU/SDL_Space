@@ -2,4 +2,4 @@
 #include "imgui.h"
 #include "SDL.h"
 
-void ShowExampleAppSimpleOverlay(bool* p_open, float avgFPS, float deltaTime);
+void ShowExampleAppSimpleOverlay(bool* p_open, float deltaTime, float avgFPS);
