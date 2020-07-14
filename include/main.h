@@ -1,51 +1,17 @@
 #pragma once
 #include "includes.h"
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-const int SCREEN_FPS = 60;
-const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
+const Uint32 SCREEN_WIDTH = 800;
+const Uint32 SCREEN_HEIGHT = 600;
+const Uint32 SCREEN_FPS = 60;
+const Uint32 SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 static bool Running = true;
 
-SDL_Window* window = NULL;
-SDL_Surface* screenSurface = NULL;
-SDL_Renderer *renderer = NULL;
+
 
 float deltaTime = 0;
 float avgFPS = 0;
-
-struct Sprite {
-	SDL_Surface* surface = NULL;
-	SDL_Texture* texture = NULL;
-	SDL_FRect rect = SDL_FRect{0, 0, 128, 128};
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	float angle = 0;
-
-	float vel = 100.f;
-private:
-	int result = 0;
-
-public:
-	// !!! Not implemented
-	void set_size() {
-		
-	}
-
-	void set_position(float x, float y) {
-		this->rect.x = x;
-		this->rect.y = y;
-	}
-
-	void draw(SDL_Renderer* renderer) {
-		//SDL_BlitSurface(this->surface, NULL, screenSurface, &this->rect);
-		//SDL_RenderCopy(renderer, this->texture, NULL, &this->rect);
-
-		this->result = SDL_RenderCopyExF(renderer, this->texture, NULL, &this->rect, this->angle, NULL, this->flip);
-		if (result < 0)
-			SDL_LogError(0, SDL_GetError());
-	}
-};
 
 void debug_message(const char* msg, SDL_Window* window)
 {
@@ -72,38 +38,24 @@ void eventHandler(SDL_Event* event)
 	}
 }
 
-void setup()
+void setup(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **renderer)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
 	}
 	else {
-		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_VULKAN);
-		if (window == NULL) {
+		*window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_VULKAN);
+		if (*window == NULL) {
 			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
 		}
 		else {
-			screenSurface = SDL_GetWindowSurface(window);
-			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0x00, 0x00, 0x00));
+			*screenSurface = SDL_GetWindowSurface(*window);
+			SDL_FillRect(*screenSurface, NULL, SDL_MapRGB((*screenSurface)->format, 0x00, 0x00, 0x00));
 		}
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	*renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
 
 	ImGui::CreateContext();
-	ImGuiSDL::Initialize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
-}
-
-Sprite *create_sprite(SDL_Renderer* renderer, const char* filepath, SDL_FRect rect)
-{
-	Sprite *sprite = (Sprite*)SDL_malloc(sizeof(Sprite));
-	sprite->surface = NULL;
-	sprite->rect = rect;
-	if (!(sprite->surface = IMG_Load(filepath))) {
-		debug_message("Cound not find sprite", window);
-	}
-	if (!(sprite->texture = SDL_CreateTextureFromSurface(renderer, sprite->surface)))
-		debug_message("Could not create texture from surface", window);
-
-	return sprite;
+	ImGuiSDL::Initialize(*renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
