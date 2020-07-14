@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "main.h"
 #include "Entity.h"
 #include "timer.h"
 
@@ -7,11 +7,6 @@
 int main(int argc, char* args[])
 {
 	setup();
-
-	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-	ImGui::CreateContext();
-	ImGuiSDL::Initialize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	Entity *playerShip = new Entity(renderer, "assets/ship.png", SDL_FRect{ SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84 });
 	playerShip->velocity = 500;
@@ -27,7 +22,6 @@ int main(int argc, char* args[])
 		capTimer.start();
 		SDL_Event event;
 		const Uint8* keystate;
-		ImGuiIO& io = ImGui::GetIO();
 
 		while (SDL_PollEvent(&event)) {
 			eventHandler(&event);
@@ -51,14 +45,6 @@ int main(int argc, char* args[])
 		if (keystate[SDL_SCANCODE_DOWN]) {
 			playerShip->Move(Vec2f{ 0, (playerShip->velocity * deltaTime) });
 		}
-
-		int mouseX, mouseY;
-		const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
-
-		io.DeltaTime = 1.0f / 60.0f;
-		io.MousePos = ImVec2(static_cast<float>(mouseX), static_cast<float>(mouseY));
-		io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
-		io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
 
 		ImGui::NewFrame();
 		ShowExampleAppSimpleOverlay(p_open, avgFPS, deltaTime);

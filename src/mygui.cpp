@@ -5,6 +5,14 @@ void ShowExampleAppSimpleOverlay(bool* p_open, float avgFPS, float deltaTime)
     const float DISTANCE = 10.0f;
     static int corner = 0;
     ImGuiIO& io = ImGui::GetIO();
+
+	int mouseX, mouseY;
+	const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
+	io.DeltaTime = 1.0f / 60.0f;
+	io.MousePos = ImVec2(static_cast<float>(mouseX), static_cast<float>(mouseY));
+	io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
+	io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
+
     if (corner != -1)
     {
         ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE : DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
