@@ -6,7 +6,7 @@ int main(int argc, char *args[])
 	SDL_Surface* screenSurface = NULL;
 	SDL_Renderer *renderer = NULL;
 
-	setup(&window, &screenSurface, &renderer);
+	Init_SDL(&window, &screenSurface, &renderer);
 
 	Entity playerShip;
 	playerShip.Create(renderer, "assets/ship.png", SDL_FRect{SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84});

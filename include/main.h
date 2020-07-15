@@ -5,6 +5,8 @@
 
 #include "mygui.h"
 
+#include "bgfx.h"
+
 const Uint32 SCREEN_WIDTH = 800;
 const Uint32 SCREEN_HEIGHT = 600;
 const Uint32 SCREEN_FPS = 60;
@@ -15,7 +17,7 @@ static bool Running = true;
 float deltaTime = 0;
 float avgFPS = 0;
 
-void setup(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **renderer)
+void Init_SDL(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **renderer)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
