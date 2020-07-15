@@ -20,7 +20,7 @@
 #include <stdint.h>  // uint32_t
 #include <stdlib.h>  // size_t
 
-#include <bx/platform.h>
+#include "platform.h"
 
 #if !defined(BGFX_INVALID_HANDLE)
 #   define BGFX_INVALID_HANDLE { UINT16_MAX }

@@ -5,7 +5,7 @@
 
 #include "mygui.h"
 
-#include "bgfx.h"
+#include "c99/bgfx.h"
 
 const Uint32 SCREEN_WIDTH = 800;
 const Uint32 SCREEN_HEIGHT = 600;
