@@ -5,7 +5,9 @@
 
 #include "mygui.h"
 
-#include "c99/bgfx.h"
+#include <bgfx.h>
+#include <platform.h>
+#include <bx/bx.h>
 
 const Uint32 SCREEN_WIDTH = 800;
 const Uint32 SCREEN_HEIGHT = 600;
@@ -36,7 +38,6 @@ void Init_SDL(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **r
 	*renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
 
 	ImGui::CreateContext();
-	ImGuiSDL::Initialize(*renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 void debug_message(const char* msg, SDL_Window* window)
