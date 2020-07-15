@@ -1,6 +1,6 @@
 #include "mygui.h"
 
-void ShowExampleAppSimpleOverlay(bool* p_open, float deltaTime, float avgFPS)
+void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS)
 {
     const float DISTANCE = 10.0f;
     static int corner = 0;
@@ -25,7 +25,7 @@ void ShowExampleAppSimpleOverlay(bool* p_open, float deltaTime, float avgFPS)
         window_flags |= ImGuiWindowFlags_NoMove;
     if (ImGui::Begin("General info", p_open, window_flags))
     {
-        ImGui::Text("FPS: %.2f\nms : %.3f", avgFPS, deltaTime);
+        ImGui::Text("%.2f fps, %.2f ms", avgFPS, deltaTime*1000);
         ImGui::Separator();
         if (ImGui::IsMousePosValid())
             ImGui::Text("Mouse Position: (%.1f,%.1f)", io.MousePos.x, io.MousePos.y);
@@ -43,4 +43,19 @@ void ShowExampleAppSimpleOverlay(bool* p_open, float deltaTime, float avgFPS)
         }
     }
     ImGui::End();
+}
+
+void DebugGuiStart(float deltaTime, float avgFPS)
+{
+	bool *p_open = NULL;
+    
+    ImGui::NewFrame();
+	DebugGuiOverlay(p_open, deltaTime, avgFPS);
+
+}
+
+void DebugGuiEnd()
+{
+    ImGui::Render();
+	ImGuiSDL::Render(ImGui::GetDrawData());
 }

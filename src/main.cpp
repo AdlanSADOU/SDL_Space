@@ -12,34 +12,26 @@ int main(int argc, char *args[])
 	playerShip.Create(renderer, "assets/ship.png", SDL_FRect{SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84});
 	playerShip.velocity = 500;
 
-	bool *p_open = NULL;
-
 	FramesLimiter FPS;
-	FPS.SetFramerate(10);
+	FPS.SetFramerate(59);
 	FPS.FramesTimerStart();
 	
-	while (Running)
-	{
+	while (Running) {
+
 		FPS.UpdateCapTimer();
 		SDL_Event event;
 
-		while (SDL_PollEvent(&event))
-		{
+		while (SDL_PollEvent(&event)) {
 			eventHandler(&event);
 		}
 
 		HandlePlayerMovement(&playerShip, deltaTime);
-
 		FPS.Start(&deltaTime);
-
-		ImGui::NewFrame();
-		ShowExampleAppSimpleOverlay(p_open, deltaTime, FPS.GetFPS());
+		DebugGuiStart(deltaTime, FPS.GetFPS());
 
 		SDL_SetRenderDrawColor(renderer, 10, 0, 0, 10);
 		SDL_RenderClear(renderer);
-
-		ImGui::Render();
-		ImGuiSDL::Render(ImGui::GetDrawData());
+		DebugGuiEnd();
 
 		playerShip.Draw(renderer, 1);
 
