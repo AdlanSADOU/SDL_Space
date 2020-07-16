@@ -9,7 +9,8 @@ int main(int argc, char *args[])
 	setup(&window, &screenSurface, &renderer);
 
 	Entity playerShip;
-	playerShip.Create(renderer, "assets/ship.png", SDL_FRect{SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84});
+	SDL_FRect playerRect = {SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84};
+	playerShip.Create(renderer, "assets/ship.png", playerRect);
 	playerShip.velocity = 500;
 
 	FramesLimiter FPS;
