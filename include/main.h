@@ -1,4 +1,9 @@
 #pragma once
+
+#include <cstdlib>
+#include <vector>
+#include <string>
+
 #include "includes.h"
 #include "Entity.h"
 #include "FramesLimiter.h"
@@ -24,10 +29,6 @@ void setup(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **rend
 		*window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_VULKAN);
 		if (*window == NULL) {
 			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-		}
-		else {
-			*screenSurface = SDL_GetWindowSurface(*window);
-			SDL_FillRect(*screenSurface, NULL, SDL_MapRGB((*screenSurface)->format, 0x00, 0x00, 0x00));
 		}
 	}
 

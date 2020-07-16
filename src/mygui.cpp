@@ -59,3 +59,9 @@ void DebugGuiEnd()
     ImGui::Render();
 	ImGuiSDL::Render(ImGui::GetDrawData());
 }
+
+void DebugGuiDestroy()
+{
+    ImGuiSDL::Deinitialize();
+	ImGui::DestroyContext();
+}

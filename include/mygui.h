@@ -6,3 +6,4 @@
 void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS);
 void DebugGuiStart(float deltaTime, float avgFPS);
 void DebugGuiEnd();
+void DebugGuiDestroy();

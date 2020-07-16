@@ -18,7 +18,7 @@
 				"/Fd:",			// Specify .pdb output dir
 				"build/Win64/",
 				
-				// "/EHsc",
+				"/EHsc",
 				
 				"/Fe:",			// Specify .exe output dir
 				"build/Win64/rpg.exe",
