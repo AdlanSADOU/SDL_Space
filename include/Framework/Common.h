@@ -22,4 +22,5 @@ const Uint32 SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 
 static bool Running = true;
 
+void LogError(char *where, char *error, char *FILE, int LINE);
 #endif // COMMON

@@ -1,19 +1,22 @@
 #include "main.h"
 
-#include "GameScene.h"
-#include "SceneManager.h"
+void LogError(char *where, char *error, char *FILE, int LINE)
+{
+    SDL_LogError(0, " %s %s line: %d : %s\n", where, FILE, LINE, error);
+}
 
 int main(int argc, char *args[])
 {
 	SDL_Window* window = NULL;
 	SDL_Surface* screenSurface = NULL;
 	SDL_Renderer *renderer = NULL;
-	SceneManager *sceneManager = NULL;
-	
+	SceneManager sceneManager;
+
 	setup(&window, &screenSurface, &renderer);
 
 	GameScene gameScene;
 	gameScene.Initialize(renderer);
+	sceneManager.SetActiveScene(&gameScene);
 
 	FramesLimiter FPS;
 	FPS.SetFramerate(59);
@@ -35,8 +38,8 @@ int main(int argc, char *args[])
 		SDL_RenderClear(renderer);
 		DebugGuiEnd();
 
-		gameScene.Update(deltaTime);
-		gameScene.Draw(renderer);
+		sceneManager.UpdateActiveScene(deltaTime);
+		sceneManager.DrawActiveScene(renderer);
 
 		SDL_RenderPresent(renderer);
 

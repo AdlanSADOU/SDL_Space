@@ -4,7 +4,8 @@
 #include "Common.h"
 
 #include "FramesLimiter.h"
-#include "Scene.h"
+#include "GameScene.h"
+#include "SceneManager.h"
 
 #include "mygui.h"
 

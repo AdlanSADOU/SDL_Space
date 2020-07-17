@@ -3,6 +3,7 @@
         "vector": "cpp",
         "cstdlib": "cpp",
         "cstring": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "xstring": "cpp"
     }
 }

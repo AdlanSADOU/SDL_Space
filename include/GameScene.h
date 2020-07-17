@@ -4,7 +4,7 @@
 #include "Common.h"
 #include "Scene.h"
 
-class GameScene : Scene
+class GameScene : public Scene
 {
 public:
     Entity playerShip;
@@ -12,14 +12,14 @@ public:
 
 	void Initialize(SDL_Renderer *renderer)
 	{
+		this->name = "GameScene";
 		playerRect = {SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84};
 		playerShip.Create(renderer, "assets/ship.png", playerRect);
 		playerShip.velocity = 500;
 	}
 
-	void Update(float deltaTime);
-	void Draw(SDL_Renderer *renderer);
-
+	void Update(float deltaTime) override;
+	void Draw(SDL_Renderer *renderer) override;
 };
 
 	void HandlePlayerMovement(Entity *player, float deltaTime)
@@ -44,13 +44,14 @@ public:
 		}
 	}
 
-	void GameScene::Update(float deltaTime)
-	{
-		HandlePlayerMovement(&playerShip, deltaTime);
-	}
+void GameScene::Update(float deltaTime)
+{
+	HandlePlayerMovement(&playerShip, deltaTime);
+}
 
-	void GameScene::Draw(SDL_Renderer *renderer)
-	{
-		playerShip.Draw(renderer, 1);
-	}
+void GameScene::Draw(SDL_Renderer *renderer)
+{
+	Scene::Draw(renderer);
+	playerShip.Draw(renderer, 1);
+}
 #endif // GAME_SCENE

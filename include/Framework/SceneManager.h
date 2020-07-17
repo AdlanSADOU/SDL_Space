@@ -4,30 +4,39 @@
 #include "Common.h"
 #include "Scene.h"
 
+struct Scenes
+{
+    std::vector<Scene *> Scenes;
+    std::vector<String> Names;
+};
+
 class SceneManager
 {
     // std::map<Scene *, String> Scenes;
-    std::vector<std::vector<Scene *>, std::vector<String>> Scenes;
-    Scene *activeScene;
-    Scene *backgroundScene;
+    Scenes scenes;
+    Scene *activeScene = nullptr;
+    Scene *backgroundScene = nullptr;
     
 public:
     void AddScene(Scene *scene, String name);
-    void RemoveSceneByIndex(int idx);
-    void RemoveSceneByName(char *name);
     void SetActiveScene(Scene *activeScene);
     void SetBackgroundScene(Scene *backgroundScene);
+    void RemoveSceneByName(char *name);
+    void RemoveSceneByIndex(int idx);
 
     Scene *GetSceneByName(char *name);
     Scene *GetSceneByIndex(int idx);
+
     Scene *GetActiveScene();
+    const char *GetActiveSceneName();
+    int GetActiveSceneIndex();
+
     Scene *GetBackgroundScene();
+    const char *GetBackgroundSceneName();
+    int GetBackgroundSceneIndex();
 
-    char *GetActiveSceneIndex();
-    int GetActiveSceneName();
-
-    char *GetBackgroundSceneIndex();
-    int GetBackgroundSceneName();
+    void UpdateActiveScene(float deltaTime);
+    void DrawActiveScene(SDL_Renderer *renderer);
 };
 
 #endif // SENE_MANAGER

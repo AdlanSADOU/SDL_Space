@@ -7,6 +7,8 @@
 class Scene
 {
     std::vector<Entity *> entities;
+public:
+    String name;
 
 public:
     void AddEntity(Entity *entity);
@@ -16,6 +18,10 @@ public:
     Entity *GetEntityByIndex();
     Entity *GetEntityByName();
     
+    virtual void Update(float deltaTime) {};
+    virtual void Draw(SDL_Renderer *renderer) { 
+        SDL_LogError(0, "lol this actually works !");
+    };
 };
 
 #endif // SCENE
