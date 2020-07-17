@@ -1,24 +1,16 @@
-#pragma once
+#if !defined(MAIN)
+#define MAIN
 
-#include <cstdlib>
-#include <vector>
-#include <string>
+#include "Common.h"
 
-#include "includes.h"
-#include "Entity.h"
 #include "FramesLimiter.h"
+#include "Scene.h"
 
 #include "mygui.h"
 
-const Uint32 SCREEN_WIDTH = 800;
-const Uint32 SCREEN_HEIGHT = 600;
-const Uint32 SCREEN_FPS = 60;
-const Uint32 SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
-
-static bool Running = true;
-
 float deltaTime = 0;
 float avgFPS = 0;
+
 
 void setup(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **renderer)
 {
@@ -26,7 +18,7 @@ void setup(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **rend
 		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
 	}
 	else {
-		*window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_VULKAN);
+		*window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (*window == NULL) {
 			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
 		}
@@ -63,24 +55,4 @@ void eventHandler(SDL_Event* event)
 	}
 }
 
-void HandlePlayerMovement(Entity *player, float deltaTime)
-{
-		const Uint8 *keystate;
-		keystate = SDL_GetKeyboardState(NULL);
-		if (keystate[SDL_SCANCODE_RIGHT])
-		{
-			player->Move(Vec2f{(player->velocity * deltaTime), 0});
-		}
-		if (keystate[SDL_SCANCODE_LEFT])
-		{
-			player->Move(Vec2f{(-player->velocity * deltaTime), 0});
-		}
-		if (keystate[SDL_SCANCODE_UP])
-		{
-			player->Move(Vec2f{0, (-player->velocity * deltaTime)});
-		}
-		if (keystate[SDL_SCANCODE_DOWN])
-		{
-			player->Move(Vec2f{0, (player->velocity * deltaTime)});
-		}
-}
+#endif // MAIN
