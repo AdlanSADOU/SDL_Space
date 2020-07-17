@@ -44,6 +44,12 @@ void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS)
     ImGui::End();
 }
 
+void DebugGuiInit(SDL_Renderer *renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
+{
+    ImGui::CreateContext();
+	ImGuiSDL::Initialize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+}
+
 void DebugGuiStart(float deltaTime, float avgFPS)
 {
 	bool *p_open = NULL;

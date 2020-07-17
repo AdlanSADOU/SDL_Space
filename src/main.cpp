@@ -1,18 +1,13 @@
 #include "main.h"
 
-void LogError(char *where, char *error, char *FILE, int LINE)
-{
-    SDL_LogError(0, " %s %s line: %d : %s\n", where, FILE, LINE, error);
-}
-
 int main(int argc, char *args[])
 {
 	SDL_Window* window = NULL;
-	SDL_Surface* screenSurface = NULL;
 	SDL_Renderer *renderer = NULL;
 	SceneManager sceneManager;
 
-	setup(&window, &screenSurface, &renderer);
+	setup(&window, &renderer);
+	DebugGuiInit(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	GameScene gameScene;
 	gameScene.Initialize(renderer);

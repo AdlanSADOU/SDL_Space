@@ -22,27 +22,27 @@ public:
 	void Draw(SDL_Renderer *renderer) override;
 };
 
-	void HandlePlayerMovement(Entity *player, float deltaTime)
+void HandlePlayerMovement(Entity *player, float deltaTime)
+{
+	const Uint8 *keystate;
+	keystate = SDL_GetKeyboardState(NULL);
+	if (keystate[SDL_SCANCODE_RIGHT])
 	{
-		const Uint8 *keystate;
-		keystate = SDL_GetKeyboardState(NULL);
-		if (keystate[SDL_SCANCODE_RIGHT])
-		{
-			player->Move(Vec2f{(player->velocity * deltaTime), 0});
-		}
-		if (keystate[SDL_SCANCODE_LEFT])
-		{
-			player->Move(Vec2f{(-player->velocity * deltaTime), 0});
-		}
-		if (keystate[SDL_SCANCODE_UP])
-		{
-			player->Move(Vec2f{0, (-player->velocity * deltaTime)});
-		}
-		if (keystate[SDL_SCANCODE_DOWN])
-		{
-			player->Move(Vec2f{0, (player->velocity * deltaTime)});
-		}
+		player->Move(Vec2f{(player->velocity * deltaTime), 0});
 	}
+	if (keystate[SDL_SCANCODE_LEFT])
+	{
+		player->Move(Vec2f{(-player->velocity * deltaTime), 0});
+	}
+	if (keystate[SDL_SCANCODE_UP])
+	{
+		player->Move(Vec2f{0, (-player->velocity * deltaTime)});
+	}
+	if (keystate[SDL_SCANCODE_DOWN])
+	{
+		player->Move(Vec2f{0, (player->velocity * deltaTime)});
+	}
+}
 
 void GameScene::Update(float deltaTime)
 {

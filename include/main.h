@@ -12,8 +12,7 @@
 float deltaTime = 0;
 float avgFPS = 0;
 
-
-void setup(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **renderer)
+void setup(SDL_Window **window, SDL_Renderer **renderer)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -26,14 +25,6 @@ void setup(SDL_Window **window, SDL_Surface **screenSurface, SDL_Renderer **rend
 	}
 
 	*renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
-
-	ImGui::CreateContext();
-	ImGuiSDL::Initialize(*renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
-}
-
-void debug_message(const char* msg, SDL_Window* window)
-{
-	SDL_ShowSimpleMessageBox(0, "DEBUG", msg, window);
 }
 
 SDL_Keycode getPressedKey(SDL_KeyboardEvent key)

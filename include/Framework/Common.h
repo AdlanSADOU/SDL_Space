@@ -13,6 +13,8 @@
 
 #include "imgui/imgui.h"
 
+#include "Debug.h"
+
 typedef std::string String;
 
 const Uint32 SCREEN_WIDTH = 800;
