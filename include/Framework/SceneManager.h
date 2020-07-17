@@ -6,7 +6,8 @@
 
 class SceneManager
 {
-    std::map<Scene *, String> Scenes;
+    // std::map<Scene *, String> Scenes;
+    std::vector<std::vector<Scene *>, std::vector<String>> Scenes;
     Scene *activeScene;
     Scene *backgroundScene;
     

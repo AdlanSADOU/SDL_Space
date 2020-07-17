@@ -1,13 +1,15 @@
 #include "main.h"
 
 #include "GameScene.h"
+#include "SceneManager.h"
 
 int main(int argc, char *args[])
 {
 	SDL_Window* window = NULL;
 	SDL_Surface* screenSurface = NULL;
 	SDL_Renderer *renderer = NULL;
-
+	SceneManager *sceneManager = NULL;
+	
 	setup(&window, &screenSurface, &renderer);
 
 	GameScene gameScene;

@@ -2,6 +2,7 @@
     "files.associations": {
         "vector": "cpp",
         "cstdlib": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "map": "cpp"
     }
 }
