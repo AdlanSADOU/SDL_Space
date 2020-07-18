@@ -1,4 +1,4 @@
-#include "mygui.h"
+#include "mygui.hpp"
 
 void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS)
 {
@@ -13,8 +13,7 @@ void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS)
 	io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
 	io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
 
-    if (corner != -1)
-    {
+    if (corner != -1) {
         ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE : DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
         ImVec2 window_pos_pivot = ImVec2((corner & 1) ? 1.0f : 0.0f, (corner & 2) ? 1.0f : 0.0f);
         ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
@@ -43,6 +42,12 @@ void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS)
         }
     }
     ImGui::End();
+}
+
+void DebugGuiInit(SDL_Renderer *renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
+{
+    ImGui::CreateContext();
+	ImGuiSDL::Initialize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 void DebugGuiStart(float deltaTime, float avgFPS)

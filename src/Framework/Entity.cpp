@@ -1,4 +1,4 @@
-#include "Entity.h"
+#include "Entity.hpp"
 
 void Entity::Move(Vec2f vector)
 {

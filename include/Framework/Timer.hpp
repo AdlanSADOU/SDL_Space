@@ -1,5 +1,7 @@
-#pragma once
-#include "includes.h"
+#if !defined(TIMER)
+#define TIMER
+
+#include "SDL.h"
 
 struct Timer {
 	void start() {
@@ -61,3 +63,5 @@ private:
 	bool mPaused = false;
 	bool mStarted = false;
 };
+
+#endif // Timer
