@@ -21,7 +21,6 @@ int main(int argc, char *args[])
 
 		FPS.UpdateCapTimer();
 		SDL_Event event;
-		app.event = event;
 
 		while (SDL_PollEvent(&event)) {
 			eventHandler(&event);

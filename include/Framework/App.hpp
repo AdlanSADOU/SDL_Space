@@ -10,7 +10,6 @@ public:
 	SDL_Window* window = NULL;
 	SDL_Renderer *renderer = NULL;
 	SceneManager sceneManager;
-	SDL_Event event;
 
 	float deltaTime = 0;
 	float avgFPS = 0;
