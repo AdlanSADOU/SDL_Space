@@ -355,3 +355,4 @@ MigrationBackup/
 .ionide/
 # *.json
 *.zip
+build/Win64/rpg.exe
