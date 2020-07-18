@@ -32,7 +32,7 @@ void SceneManager::RemoveSceneByName(char* name)
     }
 
     for (int i = 0; scenes.Names.size(); i++) {
-        if (scenes.Names[i].compare(name)) {
+        if (scenes.Names[i].compare(name) == 0) {
             scenes.Names[i] = nullptr;
             scenes.Scenes[i] = nullptr;
             break;
@@ -59,10 +59,10 @@ Scene *SceneManager::GetSceneByName(char *name)
     }
 
     for (int i = 0; scenes.Names.size(); i++) {
-        if (scenes.Names[i].compare(name)) {
+        if (scenes.Names[i].compare(name) == 0) {
             return scenes.Scenes[i];
         }
-    }   
+    }
     return nullptr;
 }
 

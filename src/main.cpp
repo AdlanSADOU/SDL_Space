@@ -1,51 +1,50 @@
 #include "main.hpp"
 
-
 int main(int argc, char *args[])
 {
-	SDL_Window* window = NULL;
-	SDL_Renderer *renderer = NULL;
-	SceneManager sceneManager;
+	App app;
 
-
-	setup(&window, &renderer);
-	DebugGuiInit(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+	app.Setup(&app.window, &app.renderer);
+	DebugGuiInit(app.renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	GameScene gameScene;
-	gameScene.Initialize(renderer);
-	sceneManager.SetActiveScene(&gameScene);
+	gameScene.Initialize(app.renderer);
+
+	app.sceneManager.AddScene(&gameScene, "GameScene");
+	app.sceneManager.SetActiveScene(app.sceneManager.GetSceneByName("GameScene"));
 
 	FramesLimiter FPS;
 	FPS.SetFramerate(59);
 	FPS.FramesTimerStart();
-	
+
 	while (Running) {
 
 		FPS.UpdateCapTimer();
 		SDL_Event event;
+		app.event = event;
 
 		while (SDL_PollEvent(&event)) {
 			eventHandler(&event);
 		}
 
-		FPS.Start(&deltaTime);
-		DebugGuiStart(deltaTime, FPS.GetFPS());
+		FPS.Start(&app.deltaTime);
+		DebugGuiStart(app.deltaTime, FPS.GetFPS());
 
-		SDL_SetRenderDrawColor(renderer, 10, 0, 0, 10);
-		SDL_RenderClear(renderer);
+		SDL_SetRenderDrawColor(app.renderer, 10, 0, 0, 10);
+		SDL_RenderClear(app.renderer);
 		DebugGuiEnd();
 
-		sceneManager.UpdateActiveScene(deltaTime);
-		sceneManager.DrawActiveScene(renderer);
+		app.sceneManager.UpdateActiveScene(app.deltaTime);
+		app.sceneManager.DrawActiveScene(app.renderer);
 
-		SDL_RenderPresent(renderer);
+		SDL_RenderPresent(app.renderer);
 
 		FPS.End();
 	}
 
 	DebugGuiDestroy();
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(app.renderer);
+	SDL_DestroyWindow(app.window);
 	SDL_Quit();
 
 	return 0;
