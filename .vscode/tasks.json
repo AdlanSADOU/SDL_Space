@@ -20,8 +20,11 @@
 				"build/Win64/rpg.exe",
 				"${workspaceFolder}/src/*.cpp",
 				"${workspaceFolder}/src/imgui/*.cpp",
+				"${workspaceFolder}/src/Framework/*.cpp",
+
 				"-I${workspaceFolder}/include/",
 				"-I${workspaceFolder}/include/imgui/",
+				"-I${workspaceFolder}/include/Framework/",
 				"-I${workspaceFolder}/vendor/SDL2/include/",
 				"/link /NOLOGO /SUBSYSTEM:CONSOLE",
 				"/LIBPATH:${workspaceFolder}/vendor/SDL2/lib/x64/",

@@ -1,73 +1,50 @@
-#include "main.h"
-
-class Test : public Entity
-{
-public:
-	std::string name = "none";
-	void testfunc() {
-		ImGui::Text(name.c_str());
-		printf(name.c_str());
-	}
-	
-};
+#include "main.hpp"
 
 int main(int argc, char *args[])
 {
-	SDL_Window* window = NULL;
-	SDL_Surface* screenSurface = NULL;
-	SDL_Renderer *renderer = NULL;
+	App app;
 
-	setup(&window, &screenSurface, &renderer);
+	app.Setup(&app.window, &app.renderer);
+	DebugGuiInit(app.renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	Test test;
-	Test test2;
+	GameScene gameScene;
+	gameScene.Initialize(app.renderer);
 
-	test.name = "first";
-	test2.name = "second";
-
-	std::vector<Entity *> entities;
-	entities.push_back(static_cast<Entity *>(&test));
-	entities.push_back(static_cast<Entity *>(&test2));
-	
-	Entity playerShip;
-	SDL_FRect playerRect = {SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84};
-	playerShip.Create(renderer, "assets/ship.png", playerRect);
-	playerShip.velocity = 500;
+	app.sceneManager.AddScene(&gameScene, "GameScene");
+	app.sceneManager.SetActiveScene(app.sceneManager.GetSceneByName("GameScene"));
 
 	FramesLimiter FPS;
 	FPS.SetFramerate(59);
 	FPS.FramesTimerStart();
-	
+
 	while (Running) {
 
 		FPS.UpdateCapTimer();
 		SDL_Event event;
+		app.event = event;
 
 		while (SDL_PollEvent(&event)) {
 			eventHandler(&event);
 		}
 
-		HandlePlayerMovement(&playerShip, deltaTime);
-		FPS.Start(&deltaTime);
-		DebugGuiStart(deltaTime, FPS.GetFPS());
+		FPS.Start(&app.deltaTime);
+		DebugGuiStart(app.deltaTime, FPS.GetFPS());
 
-		static_cast<Test *>(entities[0])->testfunc();
-		static_cast<Test *>(entities[1])->testfunc();
-
-		SDL_SetRenderDrawColor(renderer, 10, 0, 0, 10);
-		SDL_RenderClear(renderer);
+		SDL_SetRenderDrawColor(app.renderer, 10, 0, 0, 10);
+		SDL_RenderClear(app.renderer);
 		DebugGuiEnd();
 
-		playerShip.Draw(renderer, 1);
+		app.sceneManager.UpdateActiveScene(app.deltaTime);
+		app.sceneManager.DrawActiveScene(app.renderer);
 
-		SDL_RenderPresent(renderer);
+		SDL_RenderPresent(app.renderer);
 
 		FPS.End();
 	}
 
 	DebugGuiDestroy();
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(app.renderer);
+	SDL_DestroyWindow(app.window);
 	SDL_Quit();
 
 	return 0;
