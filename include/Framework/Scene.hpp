@@ -1,8 +1,8 @@
 #if !defined(SCENE)
 #define SCENE
 
-#include "Common.h"
-#include "Entity.h"
+#include "Common.hpp"
+#include "Entity.hpp"
 
 class Scene
 {
@@ -19,9 +19,7 @@ public:
     Entity *GetEntityByName();
     
     virtual void Update(float deltaTime) {};
-    virtual void Draw(SDL_Renderer *renderer) { 
-        SDL_LogError(0, "lol this actually works !");
-    };
+    virtual void Draw(SDL_Renderer *renderer) {};
 };
 
 #endif // SCENE

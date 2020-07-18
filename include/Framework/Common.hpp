@@ -13,7 +13,7 @@
 
 #include "imgui/imgui.h"
 
-#include "Debug.h"
+#include "Debug.hpp"
 
 typedef std::string String;
 

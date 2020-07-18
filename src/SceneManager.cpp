@@ -1,4 +1,4 @@
-#include "SceneManager.h"
+#include "SceneManager.hpp"
 
 void SceneManager::AddScene(Scene *scene, String name)
 {

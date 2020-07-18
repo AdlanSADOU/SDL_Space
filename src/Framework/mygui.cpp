@@ -1,4 +1,4 @@
-#include "mygui.h"
+#include "mygui.hpp"
 
 void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS)
 {

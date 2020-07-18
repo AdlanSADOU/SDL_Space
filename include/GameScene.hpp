@@ -1,8 +1,8 @@
 #if !defined(GAME_SCENE)
 #define GAME_SCENE
 
-#include "Common.h"
-#include "Scene.h"
+#include "Common.hpp"
+#include "Scene.hpp"
 
 class GameScene : public Scene
 {

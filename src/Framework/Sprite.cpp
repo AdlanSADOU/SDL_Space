@@ -1,4 +1,4 @@
-#include "Sprite.h"
+#include "Sprite.hpp"
 
 void Sprite::Create(SDL_Renderer *renderer, const char *filepath, SDL_FRect rect)
 {

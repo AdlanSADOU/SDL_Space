@@ -1,8 +1,8 @@
 #if !defined(ENTITY)
 #define ENTITY
 
-#include "Common.h"
-#include "Sprite.h"
+#include "Common.hpp"
+#include "Sprite.hpp"
 
 class Scene;
 

@@ -1,13 +1,13 @@
 #if !defined(MAIN)
 #define MAIN
 
-#include "Common.h"
+#include "Common.hpp"
 
-#include "FramesLimiter.h"
-#include "GameScene.h"
-#include "SceneManager.h"
+#include "FramesLimiter.hpp"
+#include "GameScene.hpp"
+#include "SceneManager.hpp"
 
-#include "mygui.h"
+#include "mygui.hpp"
 
 float deltaTime = 0;
 float avgFPS = 0;
@@ -15,16 +15,23 @@ float avgFPS = 0;
 void setup(SDL_Window **window, SDL_Renderer **renderer)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+		LogError("SDL initialisation", SDL_GetError(), __FILE__, __LINE__);
+		return;
 	}
 	else {
 		*window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		if (*window == NULL) {
-			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+			LogError("Window initialisation", SDL_GetError(), __FILE__, __LINE__);
+			return;
 		}
 	}
 
 	*renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
+	if (!renderer) {
+		LogError("Renderer initialisation", SDL_GetError(), __FILE__, __LINE__);
+		SDL_assert(renderer);
+		return;
+	}
 }
 
 SDL_Keycode getPressedKey(SDL_KeyboardEvent key)

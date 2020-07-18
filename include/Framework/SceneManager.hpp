@@ -1,8 +1,8 @@
 #if !defined(SENE_MANAGER)
 #define SENE_MANAGER
 
-#include "Common.h"
-#include "Scene.h"
+#include "Common.hpp"
+#include "Scene.hpp"
 
 struct Scenes
 {

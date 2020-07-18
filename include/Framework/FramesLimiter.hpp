@@ -1,7 +1,7 @@
 #if !defined(MACRO)
 #define MACRO
 
-#include "Timer.h"
+#include "Timer.hpp"
 
 class FramesLimiter
 {

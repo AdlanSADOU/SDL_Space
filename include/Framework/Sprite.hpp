@@ -4,7 +4,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 
-#include "vector.h"
+#include "vector.hpp"
 
 class Sprite
 {
