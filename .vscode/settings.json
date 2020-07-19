@@ -65,6 +65,5 @@
         "variant": "cpp"
     },
     "files.trimTrailingWhitespace": true,
-    "editor.renderWhitespace": "all",
     "files.autoSave": "afterDelay"
 }
