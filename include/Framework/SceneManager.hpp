@@ -16,7 +16,7 @@ class SceneManager
     Scenes scenes;
     Scene *activeScene = nullptr;
     Scene *backgroundScene = nullptr;
-    
+
 public:
     void AddScene(Scene *scene, String name);
     void SetActiveScene(Scene *activeScene);
