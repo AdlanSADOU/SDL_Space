@@ -21,10 +21,10 @@ public:
     void AddScene(Scene *scene, String name);
     void SetActiveScene(Scene *activeScene);
     void SetBackgroundScene(Scene *backgroundScene);
-    void RemoveSceneByName(char *name);
+    void RemoveSceneByName(const char *name);
     void RemoveSceneByIndex(int idx);
 
-    Scene *GetSceneByName(char *name);
+    Scene *GetSceneByName(const char *name);
     Scene *GetSceneByIndex(int idx);
 
     Scene *GetActiveScene();

@@ -11,6 +11,7 @@ public:
 	SDL_Renderer *renderer = NULL;
 	SceneManager sceneManager;
 
+	bool Running = true;
 	float deltaTime = 0;
 	float avgFPS = 0;
 

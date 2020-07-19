@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-int main(int argc, char *args[])
+int main(void)
 {
 	App app;
 
@@ -17,13 +17,13 @@ int main(int argc, char *args[])
 	FPS.SetFramerate(59);
 	FPS.FramesTimerStart();
 
-	while (Running) {
+	while (app.Running) {
 
 		FPS.UpdateCapTimer();
 		SDL_Event event;
 
 		while (SDL_PollEvent(&event)) {
-			eventHandler(&event);
+			eventHandler(&event, &app);
 		}
 
 		FPS.Start(&app.deltaTime);

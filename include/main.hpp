@@ -12,16 +12,16 @@ SDL_Keycode getPressedKey(SDL_KeyboardEvent key)
 	return key.keysym.sym;
 }
 
-void eventHandler(SDL_Event* event)
+void eventHandler(SDL_Event* event, App *app)
 {
 	switch ((*event).type)
 	{
 	case SDL_KEYDOWN:
 		if (getPressedKey((*event).key) == SDLK_ESCAPE)
-			Running = false;
+			app->Running = false;
 		break;
 	case SDL_QUIT:
-		Running = false;
+		app->Running = false;
 	default:
 		break;
 	}
