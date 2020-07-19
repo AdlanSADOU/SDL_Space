@@ -5,6 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/include/**",
                 "${workspaceFolder}/vendor/SDL2/include/**",
+                "${workspaceFolder}/vendor/SDL2_ttf/include/**",
+
                 "${default}"
             ],
             "defines": [

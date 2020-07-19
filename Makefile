@@ -11,9 +11,10 @@ SRC     	=       $(shell find . -name '*.cpp')
 
 OBJ     	=       $(SRC:.cpp=.o)
 
-CXXFLAGS  	+=      -Wall -Wextra
+CXXFLAGS  	+=      -Wall -Wextra -Wno-unused-parameter
 
-CXXFLAGS 	+=      -I./include -I./vendor/SDL2/include -I./include/imgui
+CXXFLAGS 	+=      -I./include -I./vendor/SDL2/include -I./include/imgui \
+					-I./include/Framework -I./vendor/SDL2_ttf/include
 
 all     	:       $(NAME)
 

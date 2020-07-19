@@ -3,55 +3,49 @@
 
 #include "Common.hpp"
 #include "Scene.hpp"
+#include "Button.hpp"
 
-class GameScene : public Scene
-{
-public:
-    Entity playerShip;
-	SDL_FRect playerRect;
+#include "Player.hpp"
 
-	void Initialize(SDL_Renderer *renderer)
-	{
-		this->name = "GameScene";
-		playerRect = {SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84};
-		playerShip.Create(renderer, "assets/ship.png", playerRect);
-		playerShip.velocity = 500;
-	}
+class GameScene : public Scene {
+	public:
+		Player playerShip;
+		SDL_FRect playerRect;
+		SDL_Renderer *renderer;
+		Button button;
 
-	void Update(float deltaTime) override;
-	void Draw(SDL_Renderer *renderer) override;
+				GameScene();
+		void 	Initialize(SDL_Renderer *renderer);
+		void 	Update(float deltaTime) override;
+		void 	Draw(SDL_Renderer *renderer) override;
 };
 
-void HandlePlayerMovement(Entity *player, float deltaTime)
+GameScene::GameScene()
 {
-	const Uint8 *keystate;
-	keystate = SDL_GetKeyboardState(NULL);
-	if (keystate[SDL_SCANCODE_RIGHT])
-	{
-		player->Move(Vec2f{(player->velocity * deltaTime), 0});
-	}
-	if (keystate[SDL_SCANCODE_LEFT])
-	{
-		player->Move(Vec2f{(-player->velocity * deltaTime), 0});
-	}
-	if (keystate[SDL_SCANCODE_UP])
-	{
-		player->Move(Vec2f{0, (-player->velocity * deltaTime)});
-	}
-	if (keystate[SDL_SCANCODE_DOWN])
-	{
-		player->Move(Vec2f{0, (player->velocity * deltaTime)});
-	}
+
+}
+
+void GameScene::Initialize(SDL_Renderer *renderer)
+{
+	this->name = "GameScene";
+	this->renderer = renderer;
+	this->playerRect = {SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84};
+	this->playerShip.Create("assets/ship.png", renderer, playerRect);
+	this->playerShip.velocity = 500;
+
+	this->button = Button(renderer, 50, 200, 50, 20);
+	this->button.SetColor(240, 0, 0, 255);
 }
 
 void GameScene::Update(float deltaTime)
 {
-	HandlePlayerMovement(&playerShip, deltaTime);
+	this->playerShip.HandleMovement(deltaTime);
 }
 
 void GameScene::Draw(SDL_Renderer *renderer)
 {
-	Scene::Draw(renderer);
-	playerShip.Draw(renderer, 1);
+	this->playerShip.Draw(renderer, 1);
+	this->button.Draw();
+
 }
 #endif // GAME_SCENE

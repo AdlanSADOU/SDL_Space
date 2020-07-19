@@ -9,7 +9,7 @@ void SceneManager::AddScene(Scene *scene, String name)
 void SceneManager::SetActiveScene(Scene *scene)
 {
     if (!scene) {
-        LogError("in SetActiveScene() :", "scene is nullptr", __FILE__, __LINE__);
+        SDL_LogError(0, "in SetActiveScene() : %s %d name is nullptr", __FILE__, __LINE__);
         return;
     }
     this->activeScene = scene;
@@ -18,16 +18,17 @@ void SceneManager::SetActiveScene(Scene *scene)
 void SceneManager::SetBackgroundScene(Scene *scene)
 {
     if (!scene) {
-        LogError("in SetBackgroundScene() :", "scene is nullptr", __FILE__, __LINE__);
+        SDL_LogError(0, "in SetBackgroundScene() : %s %d name is nullptr", __FILE__, __LINE__);
+
         return;
     }
     this->backgroundScene = scene;
 }
 
-void SceneManager::RemoveSceneByName(char* name)
+void SceneManager::RemoveSceneByName(const char* name)
 {
     if (!name) {
-        LogError("in RemoveSceneByName() :", "name is nullptr", __FILE__, __LINE__);
+        SDL_LogError(0, "in RemoveSceneByName() : %s %d name is nullptr", __FILE__, __LINE__);
         return;
     }
 
@@ -51,10 +52,10 @@ void SceneManager::RemoveSceneByIndex(int idx)
     this->scenes.Names.shrink_to_fit();
 }
 
-Scene *SceneManager::GetSceneByName(char *name)
+Scene *SceneManager::GetSceneByName(const char *name)
 {
     if (!name) {
-        LogError("in GetSceneByName() :", "name is nullptr", __FILE__, __LINE__);
+        SDL_LogError(0, "in GetSceneByName() : %s %d : name is nullptr", __FILE__, __LINE__);
         return nullptr;
     }
 

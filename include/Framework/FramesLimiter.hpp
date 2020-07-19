@@ -1,5 +1,5 @@
-#if !defined(MACRO)
-#define MACRO
+#if !defined(FRAMES_LIMITER)
+#define FRAMES_LIMITER
 
 #include "Timer.hpp"
 
@@ -64,4 +64,4 @@ void FramesLimiter::End()
 			SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks);
 }
 
-#endif // MACRO
+#endif // FRAMES_LIMITER
