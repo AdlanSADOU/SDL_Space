@@ -22,14 +22,17 @@ class Button : public Entity {
         void        SetColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
         void        SetTexture(const char *path);
         void        SetRenderer(SDL_Renderer *renderer);
+        void        SetEvent(SDL_Event *event);
         void        UpdateTexture();
-        void        UpdateHoverState(SDL_Event *event);
+        void        UpdateHoverState();
 
     private:
         SDL_Surface     *background_surface;
         SDL_FRect       background_rect;
         SDL_Texture     *texture;
         SDL_Renderer    *renderer;
+
+        SDL_Event       *event;
 
 };
 

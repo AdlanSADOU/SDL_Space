@@ -23,7 +23,8 @@ int main(void)
         SDL_Event event;
 
         while (SDL_PollEvent(&event)) {
-            eventHandler(&event, &app);
+            app.SetEvent(&event);
+            app.ReadEvent();
         }
 
         FPS.Start(&app.deltaTime);

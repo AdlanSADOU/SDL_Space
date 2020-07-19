@@ -17,6 +17,8 @@ class SceneManager
     Scene *activeScene = nullptr;
     Scene *backgroundScene = nullptr;
 
+    SDL_Event *event;
+
 public:
     void AddScene(Scene *scene, String name);
     void SetActiveScene(Scene *activeScene);
@@ -37,6 +39,10 @@ public:
 
     void UpdateActiveScene(float deltaTime);
     void DrawActiveScene(SDL_Renderer *renderer);
+
+    void SetEvent(SDL_Event *event);
+    void SetEventOnActiveScene();
+    void ReadEvent();
 };
 
 #endif // SENE_MANAGER

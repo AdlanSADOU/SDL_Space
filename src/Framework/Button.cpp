@@ -11,6 +11,8 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
+#include <iostream>
+
 Button::Button()
 {
 
@@ -52,7 +54,7 @@ void Button::Draw()
 
 void Button::Update()
 {
-
+    UpdateHoverState();
 }
 
 void Button::SetPosition(float x, float y)
@@ -88,7 +90,20 @@ void Button::SetRenderer(SDL_Renderer *renderer)
     this->renderer = renderer;
 }
 
-void Button::UpdateHoverState(SDL_Event *event)
+void Button::SetEvent(SDL_Event *event)
 {
+    this->event = event;
+}
 
+void Button::UpdateHoverState()
+{
+    SDL_Point mousePos = {this->event->button.x, this->event->button.y};
+
+    SDL_Rect buttonRect = {this->background_rect.x, this->background_rect.y, this->background_rect.w, this->background_rect.h};
+
+    printf("MOUSE POS ON CLICK : X:%d Y:%d\n", mousePos.x, mousePos.y);
+    if (SDL_PointInRect(&mousePos, &buttonRect))
+        this->SetColor(0, 0, 255, 255);
+    else
+        this->SetColor(255, 0, 0, 255);
 }

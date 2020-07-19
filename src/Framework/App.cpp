@@ -21,3 +21,16 @@ void App::Setup(SDL_Window **window, SDL_Renderer **renderer)
 		return;
 	}
 }
+
+void App::SetEvent(SDL_Event *event)
+{
+	this->event = event;
+	sceneManager.SetEvent(event);
+}
+
+void App::ReadEvent()
+{
+	if (this->event->type == SDL_QUIT)
+		exit(EXIT_SUCCESS);
+	sceneManager.ReadEvent();
+}

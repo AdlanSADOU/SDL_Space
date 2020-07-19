@@ -137,6 +137,22 @@ void SceneManager::UpdateActiveScene(float deltaTime)
 void SceneManager::DrawActiveScene(SDL_Renderer *renderer)
 {
     if (this->activeScene) {
-    this->activeScene->Draw(renderer);
+        this->activeScene->Draw(renderer);
     }
+}
+
+void SceneManager::SetEvent(SDL_Event *event)
+{
+    this->event = event;
+    SetEventOnActiveScene();
+}
+
+void SceneManager::SetEventOnActiveScene()
+{
+    GetActiveScene()->event = this->event;
+}
+
+void SceneManager::ReadEvent()
+{
+    GetActiveScene()->ReadEvent();
 }
