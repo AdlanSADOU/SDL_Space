@@ -11,14 +11,22 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 
-void Button::Draw(SDL_Renderer *renderer)
+Button::Button()
 {
-    SDL_RenderCopyF(renderer, this->texture, NULL, &this->background_rect);
+
 }
 
-void Button::Update()
+Button::Button(SDL_Renderer *renderer)
 {
+    this->background_rect.x = 200;
+    this->background_rect.y = 200;
+    this->background_rect.w = 100;
+    this->background_rect.h = 50;
 
+    this->background_surface = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
+
+    SDL_FillRect(this->background_surface, NULL, SDL_MapRGBA(this->background_surface->format, 100, 100, 100, 255));
+    this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
 }
 
 Button::Button(SDL_Renderer *renderer, float x, float y, float width, float height)
@@ -28,10 +36,23 @@ Button::Button(SDL_Renderer *renderer, float x, float y, float width, float heig
     this->background_rect.w = width;
     this->background_rect.h = height;
 
+    this->renderer = renderer;
+
     this->background_surface = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
 
     SDL_FillRect(this->background_surface, NULL, SDL_MapRGBA(this->background_surface->format, 100, 100, 100, 255));
-    this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
+
+    UpdateTexture();
+}
+
+void Button::Draw()
+{
+    SDL_RenderCopyF(this->renderer, this->texture, NULL, &this->background_rect);
+}
+
+void Button::Update()
+{
+
 }
 
 void Button::SetPosition(float x, float y)
@@ -40,18 +61,34 @@ void Button::SetPosition(float x, float y)
     this->background_rect.y = y;
 }
 
-void Button::SetTexture(SDL_Renderer *renderer, const char *path)
-{
-    this->background_surface = IMG_Load(path);
-    this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
-}
-
 SDL_FRect Button::GetPosition()
 {
     return (background_rect);
 }
 
+void Button::UpdateTexture()
+{
+    this->texture = SDL_CreateTextureFromSurface(this->renderer, this->background_surface);
+}
+
+void Button::SetTexture(const char *path)
+{
+    this->background_surface = IMG_Load(path);
+    UpdateTexture();
+}
+
 void Button::SetColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
     SDL_FillRect(this->background_surface, NULL, SDL_MapRGBA(this->background_surface->format, r, g, b, a));
+    UpdateTexture();
+}
+
+void Button::SetRenderer(SDL_Renderer *renderer)
+{
+    this->renderer = renderer;
+}
+
+void Button::UpdateHoverState(SDL_Event *event)
+{
+
 }

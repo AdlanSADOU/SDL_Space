@@ -6,12 +6,12 @@ void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS)
     static int corner = 0;
     ImGuiIO& io = ImGui::GetIO();
 
-	int mouseX, mouseY;
-	const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
-	io.DeltaTime = 1.0f / 60.0f;
-	io.MousePos = ImVec2(static_cast<float>(mouseX), static_cast<float>(mouseY));
-	io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
-	io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
+    int mouseX, mouseY;
+    const int buttons = SDL_GetMouseState(&mouseX, &mouseY);
+    io.DeltaTime = 1.0f / 60.0f;
+    io.MousePos = ImVec2(static_cast<float>(mouseX), static_cast<float>(mouseY));
+    io.MouseDown[0] = buttons & SDL_BUTTON(SDL_BUTTON_LEFT);
+    io.MouseDown[1] = buttons & SDL_BUTTON(SDL_BUTTON_RIGHT);
 
     if (corner != -1) {
         ImVec2 window_pos = ImVec2((corner & 1) ? io.DisplaySize.x - DISTANCE : DISTANCE, (corner & 2) ? io.DisplaySize.y - DISTANCE : DISTANCE);
@@ -47,26 +47,26 @@ void DebugGuiOverlay(bool* p_open, float deltaTime, float avgFPS)
 void DebugGuiInit(SDL_Renderer *renderer, int SCREEN_WIDTH, int SCREEN_HEIGHT)
 {
     ImGui::CreateContext();
-	ImGuiSDL::Initialize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+    ImGuiSDL::Initialize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 void DebugGuiStart(float deltaTime, float avgFPS)
 {
-	bool *p_open = NULL;
-    
+    bool *p_open = NULL;
+
     ImGui::NewFrame();
-	DebugGuiOverlay(p_open, deltaTime, avgFPS);
+    DebugGuiOverlay(p_open, deltaTime, avgFPS);
 
 }
 
 void DebugGuiEnd()
 {
     ImGui::Render();
-	ImGuiSDL::Render(ImGui::GetDrawData());
+    ImGuiSDL::Render(ImGui::GetDrawData());
 }
 
 void DebugGuiDestroy()
 {
     ImGuiSDL::Deinitialize();
-	ImGui::DestroyContext();
+    ImGui::DestroyContext();
 }
