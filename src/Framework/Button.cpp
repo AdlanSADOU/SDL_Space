@@ -97,7 +97,7 @@ void Button::SetEvent(SDL_Event *event)
 
 void Button::UpdateHoverState()
 {
-    SDL_Point mousePos = {this->event->button.x, this->event->button.y};
+    SDL_Point mousePos = {this->event->motion.x, this->event->motion.y};
 
     SDL_Rect buttonRect = {this->background_rect.x, this->background_rect.y, this->background_rect.w, this->background_rect.h};
 
