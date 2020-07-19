@@ -35,17 +35,17 @@ void Scene::Update(float deltaTime)
 
 }
 
+void Scene::Draw(SDL_Renderer *renderer)
+{
+
+}
+
 void Scene::SetEvent(SDL_Event *event)
 {
     this->event = event;
 }
 
 void Scene::ReadEvent()
-{
-
-}
-
-void Scene::Draw(SDL_Renderer *renderer)
 {
 
 }
