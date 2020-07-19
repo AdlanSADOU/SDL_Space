@@ -4,8 +4,7 @@
 #include "Common.hpp"
 #include "SceneManager.hpp"
 
-class App
-{
+class App {
 public:
 	SDL_Window* window = NULL;
 	SDL_Renderer *renderer = NULL;
