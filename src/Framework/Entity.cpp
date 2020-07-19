@@ -1,8 +1,31 @@
+/*
+** EPITECH PROJECT, 2020
+** SDL_Space
+** File description:
+** Entity
+*/
+
+#include <SDL.h>
+#include <SDL_image.h>
+
 #include "Entity.hpp"
 
-void Entity::Move(Vec2f vector)
+bool Entity::GetHideProperty()
 {
-    this->rect.x += vector.x;
-    this->rect.y += vector.y;
+    return (this->is_hidden);
 }
 
+void Entity::SetActiveProperty(bool is_active)
+{
+    this->is_active = is_active;
+}
+
+bool Entity::GetActiveProperty()
+{
+    return (this->is_active);
+}
+
+void Entity::SetHideProperty(bool hide)
+{
+    this->is_hidden = hide;
+}

@@ -7,13 +7,13 @@
 
 #include "Button.hpp"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 
 void Button::Draw(SDL_Renderer *renderer)
 {
-    SDL_RenderCopyF(renderer, this->texture, NULL, &background_rect);
+    // SDL_RenderCopyF(renderer, this->texture, NULL, &background_rect);
 }
 
 void Button::Update()
@@ -43,7 +43,7 @@ void Button::SetPosition(float x, float y)
 
 void Button::SetTexture(SDL_Renderer *renderer)
 {
-    this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
+    // this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
 }
 
 SDL_FRect Button::GetPosition()

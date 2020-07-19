@@ -10,12 +10,12 @@
 
 #include "Entity.hpp"
 
-class Button : public Entity {
+class Button : public Entity{
     public:
-        void        Update() override;
-        void        Draw(SDL_Renderer *renderer) override;
+        void        Update();
+        void        Draw(SDL_Renderer *renderer);
         void        SetButton(SDL_Renderer *renderer, float x, float y, float width, float height);
-        void        SetPosition(float x, float y) override;
+        void        SetPosition(float x, float y);
         SDL_FRect   GetPosition();
         void        SetColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
         void        SetTexture(SDL_Renderer *renderer);
