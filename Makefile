@@ -13,7 +13,8 @@ OBJ     	=       $(SRC:.cpp=.o)
 
 CXXFLAGS  	+=      -Wall -Wextra
 
-CXXFLAGS 	+=      -I./include -I./vendor/SDL2/include -I./include/imgui
+CXXFLAGS 	+=      -I./include -I./vendor/SDL2/include -I./include/imgui \
+					-I./include/Framework -I./vendor/SDL2_ttf/include
 
 all     	:       $(NAME)
 
