@@ -6,20 +6,23 @@
 
 class Scene
 {
-    std::vector<Entity *> entities;
-public:
-    String name;
+    public:
+        std::vector<Entity *> entities;
+        String name;
+        SDL_Event *event;
 
-public:
-    void AddEntity(Entity *entity);
-    void RemoveEntityByIndex(int idx);
-    void RemoveEntityByName(char *name);
+        void            AddEntity(Entity *entity);
+        void            RemoveEntityByIndex(int idx);
+        void            RemoveEntityByName(char *name);
 
-    Entity *GetEntityByIndex();
-    Entity *GetEntityByName();
-    
-    virtual void Update(float deltaTime) {};
-    virtual void Draw(SDL_Renderer *renderer) {};
+        Entity          *GetEntityByIndex();
+        Entity          *GetEntityByName();
+
+        virtual void    Update(float deltaTime);
+        virtual void    Draw(SDL_Renderer *renderer);
+
+        void            SetEvent(SDL_Event *event);
+        void            ReadEvent();
 };
 
 #endif // SCENE
