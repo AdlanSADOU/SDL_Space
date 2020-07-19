@@ -15,6 +15,7 @@ public:
 public:
 	void Create(const char *filepath, SDL_Renderer *renderer, SDL_FRect rect) {
 		sprite.Create(filepath, renderer, rect);
+
 	}
 
 	void Draw(SDL_Renderer *renderer, Uint8 debugFlag) {

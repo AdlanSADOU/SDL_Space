@@ -13,7 +13,7 @@
 
 void Button::Draw(SDL_Renderer *renderer)
 {
-    // SDL_RenderCopyF(renderer, this->texture, NULL, &background_rect);
+    SDL_RenderCopyF(renderer, this->texture, NULL, &this->background_rect);
 }
 
 void Button::Update()
@@ -21,7 +21,7 @@ void Button::Update()
 
 }
 
-void Button::SetButton(SDL_Renderer *renderer, float x, float y, float width, float height)
+Button::Button(SDL_Renderer *renderer, float x, float y, float width, float height)
 {
     this->background_rect.x = x;
     this->background_rect.y = y;
@@ -31,8 +31,7 @@ void Button::SetButton(SDL_Renderer *renderer, float x, float y, float width, fl
     this->background_surface = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
 
     SDL_FillRect(this->background_surface, NULL, SDL_MapRGBA(this->background_surface->format, 100, 100, 100, 255));
-
-    Button::SetTexture(renderer);
+    this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
 }
 
 void Button::SetPosition(float x, float y)
@@ -41,9 +40,10 @@ void Button::SetPosition(float x, float y)
     this->background_rect.y = y;
 }
 
-void Button::SetTexture(SDL_Renderer *renderer)
+void Button::SetTexture(SDL_Renderer *renderer, const char *path)
 {
-    // this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
+    this->background_surface = IMG_Load(path);
+    this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
 }
 
 SDL_FRect Button::GetPosition()
