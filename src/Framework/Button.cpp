@@ -97,13 +97,16 @@ void Button::SetEvent(SDL_Event *event)
 
 void Button::UpdateHoverState()
 {
-    SDL_Point mousePos = {this->event->motion.x, this->event->motion.y};
+    SDL_Point mousePos = {this->event->button.x, this->event->button.y};
 
     SDL_Rect buttonRect = {this->background_rect.x, this->background_rect.y, this->background_rect.w, this->background_rect.h};
 
-    printf("MOUSE POS ON CLICK : X:%d Y:%d\n", mousePos.x, mousePos.y);
-    if (SDL_PointInRect(&mousePos, &buttonRect))
+    if (this->event->button.clicks && SDL_PointInRect(&mousePos, &buttonRect)) {
         this->SetColor(0, 0, 255, 255);
+        if (this->event->button.type == SDL_MOUSEBUTTONUP)
+            this->SetColor(255, 0, 0, 255);
+    }
     else
+
         this->SetColor(255, 0, 0, 255);
 }

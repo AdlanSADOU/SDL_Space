@@ -63,7 +63,8 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp",
-        "condition_variable": "cpp"
+        "condition_variable": "cpp",
+        "*.rh": "cpp"
     },
     "files.trimTrailingWhitespace": true,
     "files.autoSave": "afterDelay"
