@@ -25,6 +25,7 @@ class Button : public Entity {
         void        SetEvent(SDL_Event *event);
         void        UpdateTexture();
         void        UpdateHoverState();
+        void        UpdateClickState();
 
     private:
         SDL_Surface     *background_surface;

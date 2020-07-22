@@ -55,6 +55,7 @@ void Button::Draw()
 void Button::Update()
 {
     UpdateHoverState();
+    UpdateClickState();
 }
 
 void Button::SetPosition(float x, float y)
@@ -101,12 +102,21 @@ void Button::UpdateHoverState()
 
     SDL_Rect buttonRect = {this->background_rect.x, this->background_rect.y, this->background_rect.w, this->background_rect.h};
 
-    if (this->event->button.clicks && SDL_PointInRect(&mousePos, &buttonRect)) {
+    if (SDL_PointInRect(&mousePos, &buttonRect))
         this->SetColor(0, 0, 255, 255);
-        if (this->event->button.type == SDL_MOUSEBUTTONUP)
-            this->SetColor(255, 0, 0, 255);
-    }
     else
-
         this->SetColor(255, 0, 0, 255);
+}
+
+void Button::UpdateClickState()
+{
+    SDL_Point mousePos = {this->event->button.x, this->event->button.y};
+
+    SDL_Rect buttonRect = {this->background_rect.x, this->background_rect.y, this->background_rect.w, this->background_rect.h};
+
+    if (this->event->button.state == SDL_PRESSED && SDL_PointInRect(&mousePos, &buttonRect)) {
+        this->SetColor(0, 255, 0, 255);
+        if (this->event->button.type == SDL_MOUSEBUTTONUP)
+            this->SetColor(0, 0, 0, 255);
+    }
 }
