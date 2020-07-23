@@ -18,23 +18,19 @@
 				"/EHsc",
 				"/Fe:",
 				"build/Win64/rpg.exe",
-
 				"${workspaceFolder}/src/*.cpp",
 				"${workspaceFolder}/src/imgui/*.cpp",
 				"${workspaceFolder}/src/Framework/*.cpp",
-
 				"-I${workspaceFolder}/include/",
 				"-I${workspaceFolder}/include/imgui/",
 				"-I${workspaceFolder}/include/Framework/",
 				"-I${workspaceFolder}/vendor/SDL2/include/",
 				"-I${workspaceFolder}/vendor/SDL2_ttf/include/",
 				"-I${workspaceFolder}/vendor/SDL2_mixer/include/",
-
 				"/link /NOLOGO /SUBSYSTEM:CONSOLE",
 				"/LIBPATH:${workspaceFolder}/vendor/SDL2/lib/x64/",
 				"/LIBPATH:${workspaceFolder}/vendor/SDL2_ttf/lib/x64/",
 				"/LIBPATH:${workspaceFolder}/vendor/SDL2_mixer/lib/x64/",
-
 				"SDL2main.lib",
 				"SDL2.lib",
 				"SDL2_image.lib",
@@ -49,7 +45,10 @@
 			"problemMatcher": [
 				"$msCompile"
 			],
-			"group": "build"
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		},
 		{
 			"type": "shell",
@@ -59,10 +58,7 @@
 				"-j",
 				"re"
 			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
+			"group": "build",
 			"problemMatcher": []
 		}
 	]

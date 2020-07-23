@@ -100,7 +100,8 @@ void Button::UpdateHoverState()
 {
     SDL_Point mousePos = {this->event->button.x, this->event->button.y};
 
-    SDL_Rect buttonRect = {this->background_rect.x, this->background_rect.y, this->background_rect.w, this->background_rect.h};
+    SDL_Rect buttonRect = {static_cast<int>(this->background_rect.x), static_cast<int>(this->background_rect.y),
+                        static_cast<int>(this->background_rect.w), static_cast<int>(this->background_rect.h)};
 
     if (SDL_PointInRect(&mousePos, &buttonRect))
         this->SetColor(0, 0, 255, 255);
@@ -112,7 +113,8 @@ void Button::UpdateClickState()
 {
     SDL_Point mousePos = {this->event->button.x, this->event->button.y};
 
-    SDL_Rect buttonRect = {this->background_rect.x, this->background_rect.y, this->background_rect.w, this->background_rect.h};
+    SDL_Rect buttonRect = {static_cast<int>(this->background_rect.x), static_cast<int>(this->background_rect.y),
+                        static_cast<int>(this->background_rect.w), static_cast<int>(this->background_rect.h)};
 
     if (this->event->button.state == SDL_PRESSED && SDL_PointInRect(&mousePos, &buttonRect)) {
         this->SetColor(0, 255, 0, 255);

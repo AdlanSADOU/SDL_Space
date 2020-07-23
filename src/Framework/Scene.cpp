@@ -23,11 +23,11 @@ void Scene::RemoveEntityByName(char *name)
 
 Entity Scene::*GetEntityByIndex()
 {
-
+    return nullptr;
 }
 Entity Scene::*GetEntityByName()
 {
-
+    return nullptr;
 }
 
 void Scene::Update(float deltaTime)

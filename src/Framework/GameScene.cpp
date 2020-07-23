@@ -1,5 +1,7 @@
 #include "GameScene.hpp"
 
+class SceneManager;
+
 GameScene::GameScene()
 {
 
@@ -8,6 +10,7 @@ GameScene::GameScene()
 void GameScene::Initialize(SDL_Renderer *renderer)
 {
 	this->name = "GameScene";
+
 	this->renderer = renderer;
 	this->playerRect = {SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84};
 	this->playerShip.Create("assets/ship.png", renderer, playerRect);
@@ -23,6 +26,7 @@ void GameScene::Update(float deltaTime)
 	this->playerShip.HandleMovement(deltaTime);
 	this->button.SetEvent(this->event);
 	this->button.Update();
+	this->button.UpdateClickState();
 }
 
 void GameScene::Draw(SDL_Renderer *renderer)
