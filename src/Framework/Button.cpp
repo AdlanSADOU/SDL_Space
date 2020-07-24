@@ -25,10 +25,11 @@ Button::Button(SDL_Renderer *renderer)
     this->background_rect.w = 100;
     this->background_rect.h = 50;
 
-    this->background_surface = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
+    this->background_surface_idle = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
 
-    SDL_FillRect(this->background_surface, NULL, SDL_MapRGBA(this->background_surface->format, 100, 100, 100, 255));
-    this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface);
+    SetColorIdle(255, 0, 0, 255);
+
+    this->texture = SDL_CreateTextureFromSurface(renderer, this->background_surface_idle);
 }
 
 Button::Button(SDL_Renderer *renderer, float x, float y, float width, float height)
@@ -40,11 +41,15 @@ Button::Button(SDL_Renderer *renderer, float x, float y, float width, float heig
 
     this->renderer = renderer;
 
-    this->background_surface = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
+    this->background_surface_idle = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
+    this->background_surface_hover = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
+    this->background_surface_clicked = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
 
-    SDL_FillRect(this->background_surface, NULL, SDL_MapRGBA(this->background_surface->format, 100, 100, 100, 255));
+    SDL_FillRect(this->background_surface_idle, NULL, SDL_MapRGBA(this->background_surface_idle->format, 100, 100, 100, 255));
+    SDL_FillRect(this->background_surface_hover, NULL, SDL_MapRGBA(this->background_surface_hover->format, 200, 200, 200, 255));
+    SDL_FillRect(this->background_surface_clicked, NULL, SDL_MapRGBA(this->background_surface_clicked->format, 50, 50, 50, 255));
 
-    UpdateTexture();
+    UpdateTexture(this->background_surface_idle);
 }
 
 void Button::Draw()
@@ -55,7 +60,24 @@ void Button::Draw()
 void Button::Update()
 {
     UpdateHoverState();
-    UpdateClickState();
+    UpdateClickedState();
+    UpdateColorFromState();
+}
+
+void Button::UpdateColorFromState()
+{
+    switch (this->state)
+    {
+        case HOVER :
+            UpdateTexture(background_surface_hover);
+            break;
+        case CLICKED :
+            UpdateTexture(background_surface_clicked);
+            break;
+        default:
+            UpdateTexture(background_surface_idle);
+            break;
+    }
 }
 
 void Button::SetPosition(float x, float y)
@@ -69,21 +91,35 @@ SDL_FRect Button::GetPosition()
     return (background_rect);
 }
 
-void Button::UpdateTexture()
+void Button::UpdateTexture(SDL_Surface *surface)
 {
-    this->texture = SDL_CreateTextureFromSurface(this->renderer, this->background_surface);
+    this->texture = SDL_CreateTextureFromSurface(this->renderer, surface);
 }
 
 void Button::SetTexture(const char *path)
 {
-    this->background_surface = IMG_Load(path);
-    UpdateTexture();
+    this->background_surface_idle = IMG_Load(path);
+    UpdateTexture(background_surface_idle);
 }
 
-void Button::SetColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+void Button::SetColorIdle(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-    SDL_FillRect(this->background_surface, NULL, SDL_MapRGBA(this->background_surface->format, r, g, b, a));
-    UpdateTexture();
+    SDL_FillRect(this->background_surface_idle, NULL, SDL_MapRGBA(this->background_surface_idle->format, r, g, b, a));
+}
+
+void Button::SetColorHover(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+    SDL_FillRect(this->background_surface_hover, NULL, SDL_MapRGBA(this->background_surface_hover->format, r, g, b, a));
+}
+
+void Button::SetColorClicked(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+{
+    SDL_FillRect(this->background_surface_clicked, NULL, SDL_MapRGBA(this->background_surface_clicked->format, r, g, b, a));
+}
+
+void Button::SetState(buttonState state)
+{
+    this->state = state;
 }
 
 void Button::SetRenderer(SDL_Renderer *renderer)
@@ -91,7 +127,7 @@ void Button::SetRenderer(SDL_Renderer *renderer)
     this->renderer = renderer;
 }
 
-void Button::SetEvent(SDL_Event *event)
+void Button::SetEvent(SDL_Event *event)/* code */
 {
     this->event = event;
 }
@@ -100,25 +136,23 @@ void Button::UpdateHoverState()
 {
     SDL_Point mousePos = {this->event->button.x, this->event->button.y};
 
-    SDL_Rect buttonRect = {static_cast<int>(this->background_rect.x), static_cast<int>(this->background_rect.y),
-                        static_cast<int>(this->background_rect.w), static_cast<int>(this->background_rect.h)};
+    SDL_Rect buttonRect = {static_cast<int>(this->background_rect.x), static_cast<int>(this->background_rect.y), static_cast<int>(this->background_rect.w), static_cast<int>(this->background_rect.h)};
 
     if (SDL_PointInRect(&mousePos, &buttonRect))
-        this->SetColor(0, 0, 255, 255);
+        SetState(HOVER);
     else
-        this->SetColor(255, 0, 0, 255);
+        SetState(IDLE);
 }
 
-void Button::UpdateClickState()
+void Button::UpdateClickedState()
 {
     SDL_Point mousePos = {this->event->button.x, this->event->button.y};
 
-    SDL_Rect buttonRect = {static_cast<int>(this->background_rect.x), static_cast<int>(this->background_rect.y),
-                        static_cast<int>(this->background_rect.w), static_cast<int>(this->background_rect.h)};
+    SDL_Rect buttonRect = {static_cast<int>(this->background_rect.x), static_cast<int>(this->background_rect.y), static_cast<int>(this->background_rect.w), static_cast<int>(this->background_rect.h)};
 
     if (this->event->button.state == SDL_PRESSED && SDL_PointInRect(&mousePos, &buttonRect)) {
-        this->SetColor(0, 255, 0, 255);
+        SetState(CLICKED);
         if (this->event->button.type == SDL_MOUSEBUTTONUP)
-            this->SetColor(0, 0, 0, 255);
+            SetState(IDLE);
     }
 }
