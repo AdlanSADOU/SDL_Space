@@ -16,8 +16,7 @@ void GameScene::Initialize(SDL_Renderer *renderer)
 	this->playerShip.Create("assets/ship.png", renderer, playerRect);
 	this->playerShip.velocity = 500;
 
-	this->button = Button(renderer, 50, 200, 50, 20);
-	this->button.SetColor(240, 0, 0, 255);
+	this->button = Button(renderer, 100, 200, 50, 20);
 }
 
 void GameScene::Update(float deltaTime)
@@ -26,7 +25,7 @@ void GameScene::Update(float deltaTime)
 	this->playerShip.HandleMovement(deltaTime);
 	this->button.SetEvent(this->event);
 	this->button.Update();
-	this->button.UpdateClickState();
+	this->button.UpdateClickedState();
 }
 
 void GameScene::Draw(SDL_Renderer *renderer)
