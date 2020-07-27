@@ -34,7 +34,7 @@ void Sprite::Create(const char *path, SDL_Renderer *renderer, int x, int y)
         return;
     }
 
-        int w, h;
+    int w, h;
     if (!(SDL_QueryTexture(this->texture, &this->format, &this->access, &w, &h))) {
         SDL_LogError(0, "Unnable to query texture: %s", SDL_GetError());
     }
@@ -92,15 +92,22 @@ void Sprite::SetPosition(float x, float y)
     this->rect.y = y;
 }
 
-void Sprite::Move(Vec2f vec)
-{
-    this->rect.x += vec.x;
-    this->rect.y += vec.y;
-}
 
 SDL_FRect Sprite::GetPosition()
 {
     return (rect);
+}
+
+void Sprite::SetScale(float multipler)
+{
+    this->scale = multipler;
+    this->rect.w *= multipler;
+    this->rect.h *= multipler;
+}
+
+float Sprite::GetScale()
+{
+    return this->scale;
 }
 
 void Sprite::SetAngle(double angle)
@@ -159,4 +166,10 @@ void Sprite::SetDestinationRectangle(float x, float y, float width, float height
 SDL_FRect Sprite::GetDestinationRectangle()
 {
     return (this->rect);
+}
+
+void Sprite::Move(Vec2f vec)
+{
+    this->rect.x += vec.x;
+    this->rect.y += vec.y;
 }

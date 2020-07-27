@@ -6,10 +6,9 @@
 #include "Sprite.hpp"
 
 class Player : public Entity {
-protected:
-	Sprite sprite;
 
 public:
+	Sprite sprite;
 	float velocity;
 
 public:

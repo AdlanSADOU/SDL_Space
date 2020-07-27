@@ -23,6 +23,9 @@ class Sprite : public Entity {
 		void 				SetPosition(float x, float y);
 		SDL_FRect			GetPosition();
 
+		void				SetScale(float multiplier);
+		float				GetScale();
+
 		void				SetAngle(double angle);
 		double 				GetAngle();
 
@@ -39,16 +42,16 @@ class Sprite : public Entity {
 		//Same function as GetPosition()
 		SDL_FRect 			GetDestinationRectangle();
 
-	public:
+	private:
 		SDL_Surface 		*surface = NULL;
 		SDL_Texture 		*texture = NULL;
 
 		bool				is_src_rect = 0;
 		SDL_Rect			src_rect;
 		SDL_FRect			rect;
-
-		Uint32				format;
-		int 				access;
+		float				scale = 1;
+		Uint32				format = 0;
+		int 				access = 0;
 		double 				angle = 0;
 		SDL_FPoint 			center;
 		SDL_RendererFlip flip = {SDL_FLIP_NONE};
