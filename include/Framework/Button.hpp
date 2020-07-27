@@ -10,7 +10,7 @@
 
 #include "Entity.hpp"
 
-typedef enum buttonState {
+enum buttonState {
     IDLE,
     HOVER,
     CLICKED
