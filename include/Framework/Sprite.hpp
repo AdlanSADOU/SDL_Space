@@ -12,7 +12,7 @@
 
 class Sprite : public Entity {
 	public:
-		void 				Create(const char *path, SDL_Renderer *renderer, SDL_FRect rect);
+		void 				Create(const char *path, SDL_Renderer *renderer, int x, int y);
 		virtual void 		Update(float deltaTime);
 		virtual void   		Draw(SDL_Renderer *renderer, Uint8 debugFlag);
 
@@ -42,10 +42,13 @@ class Sprite : public Entity {
 	public:
 		SDL_Surface 		*surface = NULL;
 		SDL_Texture 		*texture = NULL;
-		
+
+		bool				is_src_rect = 0;
 		SDL_Rect			src_rect;
 		SDL_FRect			rect;
-		
+
+		Uint32				format;
+		int 				access;
 		double 				angle = 0;
 		SDL_FPoint 			center;
 		SDL_RendererFlip flip = {SDL_FLIP_NONE};

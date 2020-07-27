@@ -13,7 +13,7 @@ void GameScene::Initialize(SDL_Renderer *renderer)
 
 	this->renderer = renderer;
 	this->playerRect = {SCREEN_WIDTH * 0.5f - 128 / 2, SCREEN_HEIGHT * 0.7, 84, 84};
-	this->playerShip.Create("assets/ship.png", renderer, playerRect);
+	this->playerShip.Create("assets/ship.png", renderer, playerRect.x, playerRect.y);
 	this->playerShip.velocity = 500;
 
 	this->button = Button(renderer, 100, 200, 50, 20);
