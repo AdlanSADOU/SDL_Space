@@ -81,7 +81,7 @@ void Sprite::Draw(SDL_Renderer *renderer, Uint8 debugFlag)
             SDL_LogError(0, "ERROR: %s\n", SDL_GetError());
         if (debugFlag) {
             SDL_SetRenderDrawColor(renderer, 180, 20, 20, 255);
-            SDL_RenderDrawRectF(renderer, NULL);
+            SDL_RenderDrawRectF(renderer, &this->rect);
         }
     }
 }
