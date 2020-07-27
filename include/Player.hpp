@@ -6,15 +6,14 @@
 #include "Sprite.hpp"
 
 class Player : public Entity {
-protected:
-	Sprite sprite;
 
 public:
+	Sprite sprite;
 	float velocity;
 
 public:
-	void Create(const char *filepath, SDL_Renderer *renderer, SDL_FRect rect) {
-		sprite.Create(filepath, renderer, rect);
+	void Create(const char *filepath, SDL_Renderer *renderer, int x, int y) {
+		sprite.Create(filepath, renderer, x, y);
 
 	}
 

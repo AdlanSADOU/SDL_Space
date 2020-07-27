@@ -14,7 +14,7 @@ enum buttonState {
     IDLE,
     HOVER,
     CLICKED
-} ;
+};
 
 class Button : public Entity {
     public:

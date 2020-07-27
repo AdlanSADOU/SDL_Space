@@ -12,9 +12,12 @@
 
 #include "vector.hpp"
 
-void Sprite::Create(const char *path, SDL_Renderer *renderer, SDL_FRect rect)
+void Sprite::Create(const char *path, SDL_Renderer *renderer, int x, int y)
 {
-    this->rect = rect;
+    this->rect.x = x;
+    this->rect.y = y;
+    this->rect.h = 100;
+    this->rect.w = 100;
 
     if (!renderer || !path) {
         SDL_LogError(0, "ERROR: %s\n%s at line: %d ", SDL_GetError(), __FILE__, __LINE__);
@@ -30,6 +33,14 @@ void Sprite::Create(const char *path, SDL_Renderer *renderer, SDL_FRect rect)
         SDL_LogError(0, "Unnable to create texture from surface: %s", SDL_GetError());
         return;
     }
+
+    int w, h;
+    if (!(SDL_QueryTexture(this->texture, &this->format, &this->access, &w, &h))) {
+        SDL_LogError(0, "Unnable to query texture: %s", SDL_GetError());
+    }
+    this->rect.w = w;
+    this->rect.h = h;
+
 }
 
 void Sprite::Update(float deltaTime)
@@ -41,12 +52,14 @@ void Sprite::SetTexture(const char *path, SDL_Renderer *renderer)
 {
    if (!(this->surface = IMG_Load(path))) {
         SDL_LogError(0, "Could not load: %s\n%s", path, SDL_GetError());
+        return;
     }
 
     if (!(this->texture = SDL_CreateTextureFromSurface(renderer, this->surface))) {
         SDL_LogError(0, "Unnable to create texture from surface: %s", SDL_GetError());
+        return;
     }
-    
+
     SDL_FreeSurface(this->surface);
 }
 
@@ -57,9 +70,13 @@ SDL_Texture *Sprite::GetTexture()
 
 void Sprite::Draw(SDL_Renderer *renderer, Uint8 debugFlag)
 {
-    // SDL_RenderCopyExF(renderer, this->texture, nullptr, &this->rect, this->angle, &this->center, this->flip);
-if (!this->is_hidden) {
-        int result = SDL_RenderCopyExF(renderer, this->texture, NULL, &this->rect, this->angle, NULL, this->flip);
+    if (!this->is_hidden) {
+        int result = 0;
+        if (this->is_src_rect)
+            result = SDL_RenderCopyExF(renderer, this->texture, &this->src_rect, &this->rect, this->angle, NULL, this->flip);
+        else
+            result = SDL_RenderCopyExF(renderer, this->texture, NULL, &this->rect, this->angle, NULL, this->flip);
+
         if (result < 0)
             SDL_LogError(0, "ERROR: %s\n", SDL_GetError());
         if (debugFlag) {
@@ -75,15 +92,26 @@ void Sprite::SetPosition(float x, float y)
     this->rect.y = y;
 }
 
-void Sprite::Move(Vec2f vec)
+
+Vec2f Sprite::GetPosition()
 {
-    this->rect.x += vec.x;
-    this->rect.y += vec.y;
+    Vec2f position;
+    position.x = this->rect.x;
+    position.y = this->rect.y;
+
+    return (position);
 }
 
-SDL_FRect Sprite::GetPosition()
+void Sprite::SetScale(float multipler)
 {
-    return (rect);
+    this->scale = multipler;
+    this->rect.w *= multipler;
+    this->rect.h *= multipler;
+}
+
+float Sprite::GetScale()
+{
+    return this->scale;
 }
 
 void Sprite::SetAngle(double angle)
@@ -122,6 +150,8 @@ void Sprite::SetSourceRectangle(int x, int y, int width, int height)
     (this->src_rect).y = y;
     (this->src_rect).w = width;
     (this->src_rect).h = height;
+
+    this->is_src_rect = true;
 }
 
 SDL_Rect Sprite::GetSourceRectangle()
@@ -140,4 +170,10 @@ void Sprite::SetDestinationRectangle(float x, float y, float width, float height
 SDL_FRect Sprite::GetDestinationRectangle()
 {
     return (this->rect);
+}
+
+void Sprite::Move(Vec2f vec)
+{
+    this->rect.x += vec.x;
+    this->rect.y += vec.y;
 }

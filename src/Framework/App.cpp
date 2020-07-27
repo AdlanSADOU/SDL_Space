@@ -30,7 +30,16 @@ void App::SetEvent(SDL_Event *event)
 
 void App::ReadEvent()
 {
-	if (this->event->type == SDL_QUIT)
-		exit(EXIT_SUCCESS);
+	switch ((*event).type) {
+	case SDL_KEYDOWN:
+		if (event->key.keysym.sym == SDLK_ESCAPE)
+			Running = false;
+		break;
+	case SDL_QUIT:
+		Running = false;
+	default:
+		break;
+	}
+	
 	sceneManager.ReadEvent();
 }
