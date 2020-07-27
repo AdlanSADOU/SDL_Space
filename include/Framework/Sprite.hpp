@@ -21,7 +21,7 @@ class Sprite : public Entity {
 
 		void 				Move(Vec2f vec);
 		void 				SetPosition(float x, float y);
-		SDL_FRect			GetPosition();
+		Vec2f				GetPosition();
 
 		void				SetScale(float multiplier);
 		float				GetScale();

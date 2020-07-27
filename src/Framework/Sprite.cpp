@@ -93,9 +93,13 @@ void Sprite::SetPosition(float x, float y)
 }
 
 
-SDL_FRect Sprite::GetPosition()
+Vec2f Sprite::GetPosition()
 {
-    return (rect);
+    Vec2f position;
+    position.x = this->rect.x;
+    position.y = this->rect.y;
+
+    return (position);
 }
 
 void Sprite::SetScale(float multipler)
