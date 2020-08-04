@@ -43,7 +43,7 @@ void GameScene::Update(float deltaTime)
 
 void GameScene::Draw(SDL_Renderer *renderer)
 {
-	//this->playerShip.Draw(renderer, 1);
+	this->playerShip.Draw(renderer, 1);
 	this->playerShip.anim.Draw(renderer, 1);
 	this->button.Draw();
 }
