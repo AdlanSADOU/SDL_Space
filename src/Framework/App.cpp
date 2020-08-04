@@ -1,20 +1,20 @@
 #include "App.hpp"
 
-void App::Setup(SDL_Window **window, SDL_Renderer **renderer)
+void App::Setup()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		SDL_LogError(0, "SDL_Init initialisation : %s %d : %s", __FILE__, __LINE__, SDL_GetError());
 		return;
 	}
 	else {
-		*window = SDL_CreateWindow("SDL Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		if (*window == NULL) {
+		window = SDL_CreateWindow("SDL Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (window == NULL) {
 			SDL_LogError(0, "Window initialisation : %s %d : %s", __FILE__, __LINE__, SDL_GetError());
 			return;
 		}
 	}
 
-	*renderer = SDL_CreateRenderer(*window, -1, SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	if (!renderer) {
 		SDL_LogError(0, "Renderer initialisation : %s %d : %s", __FILE__, __LINE__, SDL_GetError());
 		SDL_assert(renderer);
@@ -40,6 +40,6 @@ void App::ReadEvent()
 	default:
 		break;
 	}
-	
+
 	sceneManager.ReadEvent();
 }

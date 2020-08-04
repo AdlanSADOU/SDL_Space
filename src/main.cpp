@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
     App app;
 
-    app.Setup(&app.window, &app.renderer);
+    app.Setup();
     DebugGuiInit(app.renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     GameScene gameScene;

@@ -16,7 +16,7 @@ class App
 		float deltaTime = 0;
 		float avgFPS = 0;
 
-		void Setup(SDL_Window **window, SDL_Renderer **renderer);
+		void Setup();
 		void SetEvent(SDL_Event *event);
 		void ReadEvent();
 };
