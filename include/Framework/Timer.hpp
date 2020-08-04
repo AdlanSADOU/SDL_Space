@@ -19,6 +19,10 @@ struct Timer {
 		mPausedTicks = 0;
 	}
 
+	void reset() {
+		
+	}
+
 	void pause() {
 		if (mStarted && mPaused) {
 			mPaused = true;

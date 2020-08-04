@@ -4,11 +4,14 @@
 #include "Common.hpp"
 
 #include "Sprite.hpp"
+#include "Animation.hpp"
 
 class Player : public Entity {
 
 public:
 	Sprite sprite;
+	Animation anim;
+	AnimationInfo info;
 	float velocity;
 
 public:

@@ -23,6 +23,9 @@ class Sprite : public Entity {
 		void 				SetPosition(float x, float y);
 		Vec2f				GetPosition();
 
+		float				GetWidth();
+		float 				GetHeight();
+
 		void				SetScale(float multiplier);
 		float				GetScale();
 

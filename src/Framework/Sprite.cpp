@@ -102,6 +102,17 @@ Vec2f Sprite::GetPosition()
     return (position);
 }
 
+float Sprite::GetWidth()
+{
+    return this->rect.w;
+}
+
+float Sprite::GetHeight()
+{
+    return this->rect.h;
+}
+
+
 void Sprite::SetScale(float multipler)
 {
     this->scale = multipler;
