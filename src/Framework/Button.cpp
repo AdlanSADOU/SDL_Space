@@ -46,7 +46,7 @@ Button::Button(SDL_Renderer *renderer, float x, float y, float width, float heig
     this->background_surface_clicked = SDL_CreateRGBSurface(0, this->background_rect.w, this->background_rect.h, 32, 0, 0, 0, 0);
 
     SDL_FillRect(this->background_surface_idle, NULL, SDL_MapRGBA(this->background_surface_idle->format, 100, 100, 100, 255));
-    SDL_FillRect(this->background_surface_hover, NULL, SDL_MapRGBA(this->background_surface_hover->format, 200, 200, 200, 255));
+    SDL_FillRect(this->background_surface_hover, NULL, SDL_MapRGBA(this->background_surface_hover->format, 150, 150, 150, 255));
     SDL_FillRect(this->background_surface_clicked, NULL, SDL_MapRGBA(this->background_surface_clicked->format, 50, 50, 50, 255));
 
     UpdateTexture(this->background_surface_idle);
